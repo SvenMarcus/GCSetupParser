@@ -44,7 +44,13 @@ for index, row in gc_data.iterrows():
 
     if starting_forces_table:
         object_type = row["ObjectType"]
-        amount = int(row["Amount"])
+        amount = row["Amount"]
+
+
+        if pd.isna(object_type) or pd.isna(amount):
+            continue
+
+        amount = int(amount)
 
         if amount > 1:
             starting_forces_table.add(value=FunctionCall("listOf", amount, object_type))
